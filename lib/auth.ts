@@ -3,6 +3,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "./db";
 import { env } from "./env";
 import { emailOTP } from "better-auth/plugins";
+import { resend } from "./resend";
 
 
 export const auth = betterAuth({
@@ -16,4 +17,17 @@ export const auth = betterAuth({
         }, 
     },
     
+    plugins: [
+      emailOTP({ 
+          async sendVerificationOTP({ email, otp, type }) { 
+            await resend.emails.send({
+              // You should configure your domain in resend. But you can test with @resend.dev
+              from: 'onboarding@resend.dev', 
+              to: [email],
+              subject: 'E-LMS - Verify your email',
+              html: `<p>Your OTP is <strong>${otp}</strong></p>`
+            });
+          }, 
+      }) 
+  ]
 });
