@@ -17,6 +17,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       >
         <ArrowLeft className="size-4" /> Go Back
       </Link>
+
       <div className="flex w-full max-w-sm flex-col gap-6">
         <Link
           href={"/"}
@@ -31,6 +32,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           />
           LMS.
         </Link>
+
         {children}
 
         <div className="text-center text-balance text-muted-foreground text-xs">
@@ -39,6 +41,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           and{" "}
           <span className="hover:text-primary underline">Privacy Policy</span>
         </div>
+        
       </div>
     </div>
   );
