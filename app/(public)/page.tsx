@@ -1,13 +1,9 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 interface FeatureProps {
   title: string;
@@ -43,10 +39,6 @@ const features: FeatureProps[] = [
 ];
 
 export default function Home() {
-  const router = useRouter();
-  const { data: session } = authClient.useSession();
-
-  
   return (
     <>
       <section className="relative py-20">
@@ -82,7 +74,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      <section className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 pb-30">
         {features.map((feature, index) => (
           <Card className="hover:shadow-lg transition-shadow" key={index}>
             <CardHeader>
