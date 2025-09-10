@@ -36,7 +36,9 @@ export default function UserDropdown({ name, email, image }: AppUserProps) {
           <Avatar>
             <AvatarImage src={image} alt="Profile image" />
             <AvatarFallback>
-              {firstOrNull(name)?.toLocaleUpperCase() || ""}
+              {firstOrNull(name)?.toUpperCase() ||
+                firstOrNull(email)?.toUpperCase() ||
+                ""}
             </AvatarFallback>
           </Avatar>
           <ChevronDownIcon
