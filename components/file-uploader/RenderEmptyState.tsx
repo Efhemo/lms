@@ -20,7 +20,9 @@ export function RenderEmptyState({ isDragActive }: { isDragActive: boolean }) {
           click to upload
         </span>
       </p>
-      <Button className="mt-4">Select File</Button>
+      <Button type="button" className="mt-4">
+        Select File
+      </Button>
     </div>
   );
 }
