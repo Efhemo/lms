@@ -7,7 +7,6 @@ import {env} from "@/lib/env"
 import { v4 as uuidv4 } from "uuid";
 import {getSignedUrl} from "@aws-sdk/s3-request-presigner"
 import { s3 } from "@/lib/s3Client";
-import { error } from "console";
 
 export const fileUploadSchema = z.object({
     fileName: z.string().min(1, {message: "Filename is required"}),
