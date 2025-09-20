@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { Card, CardContent } from "../ui/card";
-import { cn } from "@/lib/utils";
+import { cn, constructImageUrl } from "@/lib/utils";
 import {
   RenderErrorState,
   RenderEmptyState,
@@ -29,6 +29,7 @@ interface Props {
 }
 
 export function Uploader({ value, onChange }: Props) {
+  const fileUrl = constructImageUrl(value || "")
   const [fileState, setFileState] = useState<UploaderState>({
     error: false,
     file: null,
@@ -37,7 +38,8 @@ export function Uploader({ value, onChange }: Props) {
     progress: 0,
     isDeleting: false,
     fileType: "image",
-    key: value
+    key: value,
+    objectUrl: fileUrl
   });
 
   async function uploadFile(file: File) {

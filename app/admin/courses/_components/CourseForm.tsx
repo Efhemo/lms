@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+
 import {
   courseCategories,
   courseLevels,
@@ -40,51 +40,32 @@ import {
 import { RichTextEditor } from "@/components/rich-text-editor/Editor";
 import { Uploader } from "@/components/file-uploader/Uploader";
 import { useTransition } from "react";
-import { CreateCourse } from "./actions";
 import { tryCatch } from "@/lib/try-catch";
 import { toast } from "sonner";
+import { date } from "zod";
 import { useRouter } from "next/navigation";
+import { UseFormReturn } from "react-hook-form";
 
-export default function CourseCreationPage() {
+interface FormProps {
+  formInput: UseFormReturn<CourseSchemaType>;
+  callback: () => void;
+  action: "create" | "edit";
+}
+
+export default function CourseForm({ formInput, callback, action }: FormProps) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  const form = useForm<CourseSchemaType>({
-    resolver: zodResolver(courseSchema),
-    defaultValues: {
-      title: "",
-      description: "",
-      fileKey: "",
-      price: 0,
-      duration: 0,
-      level: "Beginner",
-      category: "Health & Fitness",
-      status: "Draft",
-      slug: "",
-      smallDescription: "",
-    },
-  });
+  const form: UseFormReturn<CourseSchemaType> = formInput;
 
   function onSubmit(values: CourseSchemaType) {
     startTransition(async () => {
-      const { data: result, error } = await tryCatch(CreateCourse(values));
-      if (error) {
-        toast.error("An unexpected error occur. Please try again");
-        return;
-      }
-
-      if (result?.status === "success") {
-        toast.success(result.message);
-        form.reset();
-        router.push("/admin/courses");
-      } else if (result?.status === "error") {
-        toast.error(result.message);
-      }
+      callback();
     });
   }
   return (
     <>
-      <div className="flex gap-4">
+      {/* <div className="flex gap-4">
         <Link
           href="/admin/courses"
           className={buttonVariants({
@@ -95,7 +76,7 @@ export default function CourseCreationPage() {
           <ArrowLeft className="size-4" />
         </Link>
         <h1 className="text-2xl font-bold">Create course</h1>
-      </div>
+      </div> */}
 
       <Card>
         <CardHeader>
@@ -313,11 +294,13 @@ export default function CourseCreationPage() {
               <Button type="submit" disabled={isPending}>
                 {isPending ? (
                   <>
-                    Creating... <Loader2 className="animate-spin ml-1" />
+                    {action === "create" ? "Creating..." : "Updating"}{" "}
+                    <Loader2 className="animate-spin ml-1" />
                   </>
                 ) : (
                   <>
-                    Create Course <PlusIcon className="ml-1" size={1} />
+                    {action === "create" ? "Create Course" : "Update Course"}{" "}
+                    <PlusIcon className="ml-1" size={1} />
                   </>
                 )}
               </Button>
