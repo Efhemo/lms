@@ -1,11 +1,8 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-
 import {
   courseCategories,
   courseLevels,
-  courseSchema,
   CourseSchemaType,
   courseStatus,
 } from "@/lib/zod-schema";
@@ -40,9 +37,6 @@ import {
 import { RichTextEditor } from "@/components/rich-text-editor/Editor";
 import { Uploader } from "@/components/file-uploader/Uploader";
 import { useTransition } from "react";
-import { tryCatch } from "@/lib/try-catch";
-import { toast } from "sonner";
-import { date } from "zod";
 import { useRouter } from "next/navigation";
 import { UseFormReturn } from "react-hook-form";
 

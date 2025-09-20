@@ -12,6 +12,7 @@ import { courseSchema, CourseSchemaType } from "@/lib/zod-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import CourseForm from "../../_components/CourseForm";
+import CourseStructure from "./_components/CourseStructure";
 
 // nextjs 15f
 //courseId: i.e dynamic routing and should be same as the dir name - [courseId]
@@ -62,6 +63,22 @@ export default async function EditCourse({ params }: { params: Params }) {
           </Card> */}
           {/* <CourseForm formInput={form} callback={() => {}} action="edit" /> */}
         </TabsContent>
+        <TabsContent value="course-structure">
+          <Card>
+            <CardHeader>
+              <CardTitle>Course Structure</CardTitle>
+              <CardDescription>
+                Provide course structure
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <CourseStructure data={data} />
+            </CardContent>
+          </Card>
+
+        </TabsContent>
+
+        
       </Tabs>
     </div>
   );
