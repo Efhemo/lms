@@ -208,10 +208,9 @@ export default function CourseStructure({ data }: Props) {
                           ))}
                         </SortableContext>
                         <div className="p-2">
-                          <Button
-                            className="w-full"
-                            variant={"outline"}
-                          ></Button>
+                          <Button className="w-full" variant={"outline"}>
+                            Add New Course
+                          </Button>
                         </div>
                       </CollapsibleContent>
                     </Collapsible>
